@@ -56,7 +56,7 @@ namespace Puzzles
         }
 
         string validStr = isValid ? "*" : " ";
-        Console.WriteLine($" {validStr}Part number {partNumber.Value} with width {partNumber.Width} at coord {partNumber.Position}");
+        // Console.WriteLine($" {validStr}Part number {partNumber.Value} with width {partNumber.Width} at coord {partNumber.Position}");
       }
 
       int totalRatio = 0;
@@ -66,7 +66,7 @@ namespace Puzzles
         PartNumber gearPartB = schematic.PartNumbers[gear.PartIndexB];
         int ratio = schematic.GetGearRatio(gear);
         totalRatio += ratio;
-        Console.WriteLine($"Gear between {gearPartA.Value} and {gearPartB.Value} with ratio {ratio} at coord {gear.Position}");
+        // Console.WriteLine($"Gear between {gearPartA.Value} and {gearPartB.Value} with ratio {ratio} at coord {gear.Position}");
       }
 
       Console.WriteLine($"Valid part number total: {partNumberSum}");
