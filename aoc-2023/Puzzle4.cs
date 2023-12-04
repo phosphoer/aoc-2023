@@ -104,16 +104,6 @@ namespace Puzzles
       public int Value => ValidWins.Count > 0 ? 1 << ValidWins.Count - 1 : 0;
       public int Index => CardId - 1;
 
-      // public Card Copy()
-      // {
-      //   Card copy;
-      //   copy.CardId = CardId;
-      //   copy.Numbers = Numbers;
-      //   copy.ValidWins = ValidWins;
-      //   copy.WinningNumbers = WinningNumbers;
-      //   return copy;
-      // }
-
       public int CardId;
       public List<int> WinningNumbers;
       public List<int> Numbers;
