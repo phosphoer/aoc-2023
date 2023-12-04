@@ -6,7 +6,7 @@ namespace AOC
   {
     static void Main(string[] args)
     {
-      Puzzles.Puzzle2.Run();
+      Puzzles.Puzzle3.Run();
     }
   }
 }
