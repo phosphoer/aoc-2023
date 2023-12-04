@@ -42,22 +42,6 @@ namespace Puzzles
       Console.WriteLine($"Iteration count: {iterations}");
     }
 
-    public static void CreateCardCopies(Card card, List<Card> cards, List<Card> copies, int depth)
-    {
-      for (int i = 0; i < depth; ++i)
-        Console.Write('.');
-
-      Console.WriteLine($"Card {card.CardId} has {card.ValidWins.Count} matching numbers");
-      for (int j = card.Index + 1; j < card.Index + 1 + card.ValidWins.Count; ++j)
-      {
-        Card copy = cards[j];
-        copies.Add(card);
-
-        if (copy.ValidWins.Count > 0)
-          CreateCardCopies(copy, cards, copies, depth + 1);
-      }
-    }
-
     public struct Card
     {
       public static Card FromString(string cardStr)
