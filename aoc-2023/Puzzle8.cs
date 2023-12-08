@@ -4,10 +4,10 @@ namespace Puzzles
   {
     public static void Run()
     {
-      Graph graph = new Graph(Puzzle8Input.Input);
+      Graph graph = new Graph(Puzzle8Input.Test3);
       graph.Print();
 
-      int count = graph.RunInstructions(outputDebug: false);
+      int count = graph.RunInstructions2(outputDebug: true);
       Console.WriteLine($"Instructions to reach ZZZ: {count}");
     }
 
@@ -30,7 +30,7 @@ namespace Puzzles
           for (int i = 0; i < line.Length; ++i)
           {
             char c = line[i];
-            if (char.IsLetter(c))
+            if (char.IsLetterOrDigit(c))
               parseBuffer += c;
 
             if (parseBuffer.Length == 3)
@@ -109,6 +109,71 @@ namespace Puzzles
         return count;
       }
 
+      public int RunInstructions2(bool outputDebug)
+      {
+        int count = 0;
+        bool isDone = false;
+        List<Node> currentNodes = new();
+
+        foreach (var node in Nodes)
+          if (node.Name.EndsWith('A'))
+            currentNodes.Add(node);
+
+        if (outputDebug)
+        {
+          Console.Write($"Starting nodes: ");
+          foreach (var node in currentNodes)
+            Console.Write($"{node.Name} ");
+
+          Console.WriteLine();
+        }
+
+        while (!isDone)
+        {
+          foreach (char dir in Instructions)
+          {
+            if (outputDebug)
+            {
+              if (count % 10000 == 0)
+                Console.Write('.');
+
+              if (count % 1000000 == 0)
+                Console.WriteLine();
+            }
+
+            if (dir == 'L')
+            {
+              for (int i = 0; i < currentNodes.Count; ++i)
+                currentNodes[i] = currentNodes[i].LeftNode;
+            }
+            else if (dir == 'R')
+            {
+              for (int i = 0; i < currentNodes.Count; ++i)
+                currentNodes[i] = currentNodes[i].RightNode;
+            }
+
+            count += 1;
+
+            bool allDone = true;
+            foreach (var node in currentNodes)
+              allDone &= node.IsEndNode;
+
+            if (allDone)
+            {
+              isDone = true;
+              break;
+            }
+          }
+        }
+
+        if (outputDebug)
+        {
+          Console.WriteLine();
+        }
+
+        return count;
+      }
+
       public void Print()
       {
         Console.WriteLine(Instructions);
@@ -121,6 +186,8 @@ namespace Puzzles
 
     public class Node
     {
+      public bool IsEndNode => Name.EndsWith('Z');
+
       public string Name = string.Empty;
       public string Left = string.Empty;
       public string Right = string.Empty;
